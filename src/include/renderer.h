@@ -1,44 +1,48 @@
+#ifndef _RENDERER_H_
+#define _RENDERER_H_
+
 #include <GL/glew.h>
 #include <vector>
 
 #include "camera.h"
 #include "light.h"
 #include "mesh.h"
-#include "model.h"
+
 #include "shader.h"
 #include "transform.h"
 #include "window.h"
 
+#include "block.h"
+#include "matrix.h"
+#include "timer.h"
 
-#ifndef SCENE_IMPLEMENTATION_H
-#define SCENE_IMPLEMENTATION_H 1
-
-class Scene {
+class Renderer {
 public:
-    Scene(Camera *camera, GWindow *window);
+    Renderer(Camera *camera, GWindow *window);
     void AddMesh(Mesh *mesh);
-    void AddModel(Model *model);
+
     void AddDirectionalLight(DirectionalLight *light);
     void AddPointLight(PointLight *light);
-    void AddPointsLights(PointLight lights[]);
     void RenderScene();
-    ~Scene();
+    void RenderMatrix();
+    ~Renderer();
 
 private:
-    std::vector<Mesh *> meshes;
-    std::vector<Model *> models;
+    Matrix *matrix;
+
     std::vector<DirectionalLight *> directionalLights;
     std::vector<PointLight *> pointLights;
-    std::vector<Shader*> shaders;
+    std::vector<Shader *> shaders;
     Camera *camera;
     GWindow *window;
-    Mesh* quad;
+    Timer* timer;
+    Timer* sidewaysTimer;
+    Block *blocks[8];
+
+    Transform *transform;
     glm::mat4 projection;
-   
-void ResizeMeshesAndModels(Shader *shader);
-    void InitShadows();
-    void RenderMeshesAndModels(Shader* shader);
     void ApplyLighting();
+    void RenderBlock(unsigned int color, int i, int j, int k);
 };
 
-#endif //SCENE_IMPLEMENTATION_H
+#endif

@@ -4,7 +4,7 @@ Transform::Transform() {
     model = glm::mat4(1.0f);
 }
 void Transform::Translate(float unitsX, float unitsY, float unitsZ) {
-    model = glm::translate(model, glm::vec3(unitsX, unitsY, unitsY));
+    model = glm::translate(model, glm::vec3(unitsX, unitsY, unitsZ));
 }
 
 void Transform::Translate(glm::vec3 units) {

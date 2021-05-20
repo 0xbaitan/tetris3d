@@ -118,6 +118,8 @@ vec3 CalculateShadingResult(Light light, Material material, vec3 light_direction
     vec3 view_direction = normalize(view_pos - fragment_pos);
     vec3 reflect_direction = reflect(-light_direction, norm);
     float spec = pow(max(dot(view_direction, reflect_direction), 0.0f), material.shininess);
+  
+   
     ambient = vec3(0.1f) * light.ambient * material.ambient * vec3(texture(texture_diffuse0, tex_coords));
     diffuse =  diff * light.diffuse * material.diffuse * vec3(texture(texture_diffuse0, tex_coords));
     specular = 0.5f * spec * light.specular * material.specular * vec3(texture(texture_specular0, tex_coords));
